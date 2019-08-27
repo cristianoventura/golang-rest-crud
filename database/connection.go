@@ -3,8 +3,8 @@ package database
 import (
 	"context"
 	"fmt"
-	"golang-rest-crud/structs"
-	"golang-rest-crud/utils"
+	"golang-rest-mongodb/structs"
+	"golang-rest-mongodb/utils"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

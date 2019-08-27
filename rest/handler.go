@@ -1,7 +1,7 @@
 package rest
 
 import (
-	"golang-rest-crud/database"
+	"golang-rest-mongodb/database"
 	"net/http"
 )
 

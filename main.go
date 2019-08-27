@@ -1,7 +1,7 @@
 package main
 
 import (
-	"golang-rest-crud/rest"
+	"golang-rest-mongodb/rest"
 )
 
 func main() {

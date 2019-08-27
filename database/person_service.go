@@ -2,7 +2,7 @@ package database
 
 import (
 	"context"
-	"golang-rest-crud/structs"
+	"golang-rest-mongodb/structs"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 

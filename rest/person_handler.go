@@ -3,7 +3,7 @@ package rest
 import (
 	"encoding/json"
 	"fmt"
-	"golang-rest-crud/structs"
+	"golang-rest-mongodb/structs"
 	"net/http"
 
 	"github.com/go-chi/chi"
