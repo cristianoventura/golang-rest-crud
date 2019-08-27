@@ -3,42 +3,49 @@ package database
 import (
 	"context"
 	"fmt"
-	"log"
+	"golang-rest-crud/structs"
+	"golang-rest-crud/utils"
 
-	"../utils"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// DBInstance can be used in any service after connected
-var DBInstance *mongo.Database
+type DB struct {
+	*mongo.Database
+}
+
+type ServiceInterface interface {
+	AddPerson(person structs.Person) (interface{}, error)
+	FindPerson(id string) (interface{}, error)
+}
 
 // Connect to the database
-func Connect() *mongo.Database {
+func Connect() (*DB, error) {
 	// Check whether the .env variables exist
 	dbName, err := utils.Env("DB_NAME")
 	if err != nil {
-		log.Fatal("DB_NAME not declared in .env file")
+		return nil, err
 	}
 	connectionString, err := utils.Env("DB_URL")
 	if err != nil {
-		log.Fatal("DB_URL not declared in .env file")
+		return nil, err
 	}
 
 	// Connect to the database
 	client, err := mongo.Connect(context.Background(), options.Client().ApplyURI(connectionString))
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	// Check the connection
 	err = client.Ping(context.Background(), nil)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	fmt.Println("Connected to MongoDB")
 
-	DBInstance = client.Database(dbName)
-	return DBInstance
+	return &DB{
+		client.Database(dbName),
+	}, nil
 }

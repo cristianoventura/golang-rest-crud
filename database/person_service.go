@@ -1,15 +1,14 @@
-package services
+package database
 
 import (
 	"context"
+	"golang-rest-crud/structs"
 
-	"../structs"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // AddPerson - Creates a new document in people collection
-func AddPerson(person structs.Person, db *mongo.Database) (interface{}, error) {
+func (db *DB) AddPerson(person structs.Person) (interface{}, error) {
 	collection := db.Collection("people")
 	res, err := collection.InsertOne(context.Background(), person)
 	if err != nil {
@@ -19,7 +18,7 @@ func AddPerson(person structs.Person, db *mongo.Database) (interface{}, error) {
 }
 
 // FindPerson - Returns the document by the specified id
-func FindPerson(id string, db *mongo.Database) (interface{}, error) {
+func (db *DB) FindPerson(id string) (interface{}, error) {
 	collection := db.Collection("people")
 	filter := bson.D{{"_id", id}}
 	var res structs.Person
