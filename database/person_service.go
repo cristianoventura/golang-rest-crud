@@ -4,6 +4,8 @@ import (
 	"context"
 	"golang-rest-crud/structs"
 
+	"go.mongodb.org/mongo-driver/bson/primitive"
+
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -20,7 +22,8 @@ func (db *DB) AddPerson(person structs.Person) (interface{}, error) {
 // FindPerson - Returns the document by the specified id
 func (db *DB) FindPerson(id string) (interface{}, error) {
 	collection := db.Collection("people")
-	filter := bson.D{{"_id", id}}
+	objectID, _ := primitive.ObjectIDFromHex(id)
+	filter := bson.D{primitive.E{Key: "_id", Value: objectID}}
 	var res structs.Person
 	err := collection.FindOne(context.Background(), filter).Decode(&res)
 	if err != nil {

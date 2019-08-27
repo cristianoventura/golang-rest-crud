@@ -14,6 +14,7 @@ func Router(h HandlerInterface) *chi.Mux {
 
 	r.Route("/api", func(r chi.Router) {
 		r.Post("/person", h.CreatePerson)
+		r.Get("/person/{personID}", h.GetPersonByID)
 	})
 
 	return r

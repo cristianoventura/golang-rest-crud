@@ -8,6 +8,7 @@ import (
 // HandlerInterface contains the implementation for each route
 type HandlerInterface interface {
 	CreatePerson(w http.ResponseWriter, r *http.Request)
+	GetPersonByID(w http.ResponseWriter, r *http.Request)
 }
 
 // Handler gives access to request, response and database
